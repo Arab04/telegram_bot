@@ -82,6 +82,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
 
+            System.err.println(chatId);
+
             if(messageText.contains("/send") && config.getOwnerId() == chatId) {
                 var textToSend = EmojiParser.parseToUnicode(messageText.substring(messageText.indexOf(" ")));
                 var users = userRepository.findAll();
@@ -253,17 +255,17 @@ public class TelegramBot extends TelegramLongPollingBot {
         executeMessage(message);
     }
 
-    @Scheduled(cron = "${cron.scheduler}")
-    private void sendAds(){
-
-        var ads = adsRepository.findAll();
-        var users = userRepository.findAll();
-
-        for(Ads ad: ads) {
-            for (User user: users){
-                prepareAndSendMessage(user.getChatId(), ad.getAd());
-            }
-        }
-
-    }
+//    @Scheduled(cron = "${cron.scheduler}")
+//    private void sendAds(){
+//
+//        var ads = adsRepository.findAll();
+//        var users = userRepository.findAll();
+//
+//        for(Ads ad: ads) {
+//            for (User user: users){
+//                prepareAndSendMessage(user.getChatId(), ad.getAd());
+//            }
+//        }
+//
+//    }
 }

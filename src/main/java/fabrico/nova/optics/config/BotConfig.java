@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableScheduling
 @Data
-@PropertySource("application.properties")
+@PropertySource("application.yml")
 public class BotConfig {
 
     @Value("${bot.name}")
