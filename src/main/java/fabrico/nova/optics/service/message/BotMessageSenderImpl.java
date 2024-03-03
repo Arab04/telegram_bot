@@ -1,12 +1,13 @@
 package fabrico.nova.optics.service.message;
 
-import fabrico.nova.optics.model.CustomerEntity;
 import fabrico.nova.optics.model.UserEntity;
 import fabrico.nova.optics.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
@@ -16,16 +17,9 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MessageSenderImpl implements MessageSender {
+public class BotMessageSenderImpl implements BotMessageSender {
 
     private final UserRepository userRepository;
-
-    @Override
-    public void sendMessagesToCustomers(List<CustomerEntity> customers) {
-        for (CustomerEntity customer : customers) {
-            System.out.println(String.format("MESSAGE SENT TO CUSTOMER: %s NUMBER: %s", customer.getCustomerName(), customer.getCustomerNumber()));
-        }
-    }
 
     @Override
     public SendMessage sendBotMessage(Long chatId, String text) {
@@ -48,9 +42,18 @@ public class MessageSenderImpl implements MessageSender {
     public List<SendMessage> sendPost(String text) {
         List<UserEntity> users = userRepository.findAll();
         List<SendMessage> sendMessages = new ArrayList<>();
-        for(UserEntity user: users) {
+        for (UserEntity user : users) {
             sendMessages.add(sendBotMessage(user.getChatId(), text));
         }
         return sendMessages;
+    }
+
+    @Override
+    public SendPhoto sendPhoto(Message message, String path) {
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setPhoto(new InputFile(path));
+        sendPhoto.setCaption(message.getCaption());
+        sendPhoto.setChatId(String.valueOf(message.getChatId()));
+        return sendPhoto;
     }
 }

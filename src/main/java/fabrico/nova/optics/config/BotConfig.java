@@ -1,23 +1,17 @@
-package io.proj3ct.SpringDemoBot.config;
+package fabrico.nova.optics.config;
 
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@Configuration
+@Getter
+@Setter
 @EnableScheduling
-@Data
-@PropertySource("application.yml")
+@ConfigurationProperties(prefix = "bot")
 public class BotConfig {
 
-    @Value("${bot.name}")
-    String botName;
-
-    @Value("${bot.token}")
-    String token;
-
-    @Value("${bot.owner}")
-    Long ownerId;
+    private String name;
+    private String token;
+    private Long ownerId;
 }

@@ -1,0 +1,17 @@
+bot:
+  name: novaopticsBot
+  token: 6948731608:AAEzWxi3rLrV8rovzl539HOpkgDbFyhwM0U
+  ownerId: 1161249539
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: nova
+    password: nova
+    driverClassName: org.postgresql.Driver

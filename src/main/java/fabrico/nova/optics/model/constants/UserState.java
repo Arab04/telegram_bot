@@ -1,4 +1,4 @@
-package fabrico.nova.optics.model;
+package fabrico.nova.optics.model.constants;
 
 public enum UserState {
 
@@ -8,6 +8,7 @@ public enum UserState {
     CUSTOMER_NUMBER,
     LINZA_WARNING,
     LINZA_NAME,
+    LINZA_CUSTOMER_NAME,
     ADMIN_MENU,
     USER_REGISTER,
     SAVE_USER_CONTACT,
